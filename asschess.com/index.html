@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chess App</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/game.css" />
+		<link rel="stylesheet" href="css/slider.css" />
+		<script
+			src="https://kit.fontawesome.com/b379ef805a.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="icon" type="image/x-icon" href="favicon.png" />
+	</head>
+	<body>
+		<header id="header">
+			<div id="top-left"></div>
+			<div id="title-div">
+				<h1 id="title">CHESS</h1>
+			</div>
+			<div id="fen-form">
+				<button id="flip-button">
+					<p><i class="fa-solid fa-arrows-rotate"></i></p>
+				</button>
+				<input
+					type="text"
+					placeholder="Enter a FEN string."
+					id="fen-input"
+					name="input"
+				/>
+				<button id="fen-submit">Enter</button>
+			</div>
+		</header>
+		<div id="main">
+			<div id="left-side">
+				<div id="move-list-cont">
+					<div id="moves-top">
+						<div id="moves-top-left">
+							<button id="undo-button">
+								<p><i class="fas fa-step-backward"></i></p>
+							</button>
+						</div>
+						<div id="moves-top-middle">
+							<h2 id="moves-title">Moves</h2>
+						</div>
+						<div id="moves-top-right">
+							<button id="redo-button">
+								<p><i class="fas fa-step-forward"></i></p>
+							</button>
+						</div>
+					</div>
+					<ul id="move-list"></ul>
+				</div>
+			</div>
+			<div id="board" draggable="false"></div>
+			<div id="right-side">
+				<div id="panels">
+					<div id="con-holder" class="holder un-sel">
+						<div id="con-tab" class="un-sel">
+							<h2 id="con-title">Connections</h2>
+						</div>
+					</div>
+					<div id="engine-holder" class="holder">
+						<div id="engine-tab">
+							<h2 id="engine-title">Engine</h2>
+						</div>
+					</div>
+				</div>
+				<div id="connections" class="hidden-panel">
+					<div id="output">
+						<div id="connections-top">
+							<p id="devices-title">Devices:</p>
+							<button id="buttplug-websocket-button">
+								Search
+							</button>
+						</div>
+						<ol id="devices"></ol>
+					</div>
+				</div>
+				<div id="engine-panel">
+					<div id="engine-controls">
+						<label class="switch">
+							<input type="checkbox" id="engine-toggle" />
+							<span class="slider round"></span>
+						</label>
+						<p id="eval-label">Eval</p>
+						<p id="eval">----</p>
+						<p id="best-move-label">Best Move</p>
+						<p id="best-move">----</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/buttplug@1.0.17/dist/web/buttplug.min.js"></script>
+		<script src="./js/script.js"></script>
+		<script type="module" src="./js/connections.js"></script>
+		<script type="module" src="./js/engine.js"></script>
+		<script type="module" src="./js/game.js"></script>
+	</body>
+</html>

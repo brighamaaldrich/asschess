@@ -1,0 +1,68 @@
+.switch {
+	position: relative;
+	display: inline-block;
+	width: calc(var(--large-spacing) * 1.2);
+	height: var(--med1-spacing);
+	margin-right: var(--med2-spacing);
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: red;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: var(--med2-spacing);
+	width: var(--med2-spacing);
+	left: calc((var(--med1-spacing) - var(--med2-spacing)) / 2);
+	bottom: calc((var(--med1-spacing) - var(--med2-spacing)) / 2);
+	background-color: var(--text-color);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:checked + .slider {
+	background-color: var(--accent);
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px var(--accent);
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(
+		calc(1.2 * var(--large-spacing) - var(--med1-spacing))
+	);
+	-ms-transform: translateX(
+		calc(1.2 * var(--large-spacing) - var(--med1-spacing))
+	);
+	transform: translateX(
+		calc(1.2 * var(--large-spacing) - var(--med1-spacing))
+	);
+}
+
+/* Rounded sliders */
+.slider.round {
+	border-radius: 1000px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}

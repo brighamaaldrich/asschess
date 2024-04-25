@@ -1,0 +1,144 @@
+#board {
+	display: grid;
+	grid-template-rows: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+	width: 45vw;
+	height: 45vw;
+	margin: 0;
+	padding: 0;
+	box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.8);
+	/* box-shadow: 0px 0px 15px 5px rgba(0, 0, 10, 0.5); */
+}
+
+.square {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+}
+
+.square > img {
+	width: 97%;
+	z-index: 2;
+	position: absolute;
+}
+
+.square .shader {
+	position: absolute;
+	visibility: hidden;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.light {
+	background-color: rgb(222, 227, 230);
+}
+
+.dark {
+	background-color: rgb(140, 161, 173);
+}
+
+.light.prev-move:not(.legal) {
+	background-color: rgb(195, 215, 153);
+}
+
+.dark.prev-move:not(.legal) {
+	background-color: rgb(147, 177, 120);
+}
+
+.light.selected {
+	background-color: rgb(125, 156, 131);
+}
+
+.dark.selected {
+	background-color: rgb(83, 123, 104);
+}
+
+.light.legal .shader {
+	visibility: visible;
+	border: 1.6vw solid rgb(164, 184, 165);
+	width: 170%;
+	height: 170%;
+}
+
+.light.empty.legal .shader {
+	visibility: visible;
+	background-color: rgb(125, 156, 131);
+	border: none;
+	width: 27%;
+	height: 27%;
+}
+
+.dark.legal .shader {
+	visibility: visible;
+	border: 1.6vw solid rgb(106, 138, 125);
+	width: 170%;
+	height: 170%;
+}
+
+.dark.empty.legal .shader {
+	visibility: visible;
+	background-color: rgb(83, 123, 104);
+	border: none;
+	width: 27%;
+	height: 27%;
+}
+
+.check .shader {
+	visibility: visible;
+	background-color: red;
+	width: 20%;
+	height: 20%;
+	border-radius: 50%;
+	box-shadow: 0px 0px 2vw 1.7vw red;
+}
+
+.light.legal:hover {
+	background-color: rgb(164, 184, 165);
+}
+
+.light.legal:hover .shader {
+	visibility: hidden;
+}
+
+.dark.legal:hover {
+	background-color: rgb(106, 138, 125);
+}
+
+.dark.legal:hover .shader {
+	visibility: hidden;
+}
+
+.crop-div {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.square > img,
+.crop-div,
+.shader {
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media (max-width: 700px) {
+	#board {
+		width: 90vw;
+		height: 90vw;
+	}
+	.dark.legal .shader {
+		border: 3.2vw solid rgb(106, 138, 125);
+	}
+	.light.legal .shader {
+		border: 3.2vw solid rgb(164, 184, 165);
+	}
+}
