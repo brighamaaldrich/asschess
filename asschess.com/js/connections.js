@@ -67,10 +67,10 @@ async function sendMove(move, device) {
 	for (let i = 0; i < codes.length; i++) {
 		for (let j = 0; j < codes[i].length; j++) {
 			if (codes[i].charAt(j) == "0") {
-				await device.vibrate(0.4);
+				await device.vibrate(0.7);
 				await new Promise((r) => setTimeout(r, 250));
 			} else if (codes[i].charAt(j) == "1") {
-				await device.vibrate(0.4);
+				await device.vibrate(1);
 				await new Promise((r) => setTimeout(r, 1300));
 			}
 			await device.stop();
@@ -80,12 +80,26 @@ async function sendMove(move, device) {
 	}
 }
 
+function sendPhoneMove(move) {
+	var codes = moveToBinary(move);
+	console.log(move, codes);
+	var pattern = [];
+	for (var i = 0; i < codes.length; i++) {
+		for (var j = 0; j < codes[i].length; j++) {
+			pattern.push(400 + parseInt(codes[i][j]) * 1000);
+			pattern.push(400);
+		}
+		pattern[pattern.length - 1] += 400;
+	}
+	window.navigator.vibrate(pattern);
+}
+
 function getMove() {
 	var input = document.getElementsByClassName("move-input")[0];
 	var last_move = document.getElementsByClassName("curr-move")[0];
 	var move;
-	if (/^([a-h][1-8])\s*([a-h][1-8])$/.test(input.value)) {
-		move = input.value;
+	if (/^([a-h][1-8])\s*([a-h][1-8])$/.test(input.value.toLowerCase())) {
+		move = input.value.toLowerCase();
 		move = move.substring(0, 2) + " " + move.substring(move.length - 2);
 		input.value = "";
 	} else if (last_move != null) {
@@ -110,3 +124,32 @@ function moveToBinary(move) {
 
 document.getElementById("buttplug-websocket-button").onclick = () =>
 	clickHandler();
+
+if ("vibrate" in navigator) {
+	var ul = document.getElementById("devices");
+	var li = document.createElement("li");
+	var li_name = document.createElement("p");
+	var button = document.createElement("button");
+	var input = document.createElement("input");
+	var right = document.createElement("div");
+	right.appendChild(input);
+	right.appendChild(button);
+	li.appendChild(li_name);
+	li.appendChild(right);
+	ul.appendChild(li);
+	right.classList.add("device-right");
+	li.classList.add("device");
+	li_name.classList.add("device-name");
+	input.classList.add("move-input");
+	button.classList.add("move-button");
+	button.innerHTML = "Send";
+	button.addEventListener("click", async () => {
+		let move = getMove();
+		if (move) {
+			sendPhoneMove(move);
+		}
+	});
+	input.placeholder = "Ex: e2 e4";
+	input.name = "input";
+	li_name.innerHTML = "Phone Vibration";
+}
